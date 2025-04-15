@@ -1,17 +1,19 @@
 "use client";
-import { TruckIcon } from "lucide-react";
-import { useState } from "react";
-import ModelTracking from "./ModelTracking";
-import ISeguimientoPortes from "@/lib/types";
+import { useEffect, useState } from "react";
+import { ISeguimientoPortes } from "@/lib/types";
 import useRecuperarFactura from "@/lib/hooks/useRecuperarFactura";
 import { sortByProperty, NumberFormatter } from "@/lib/utils";
+
 export default function TableSeguimientoPortes(props: { portes: ISeguimientoPortes[] }) {
   const { handlePdf } = useRecuperarFactura();
   const { portes } = props;
   const [expandedRows, setExpandedRows] = useState<{ [key: number]: boolean }>({});
-  const [isShown, setIsShown] = useState(false);
   const [sortedList, setSortedList] = useState(portes);
   const [sortDirections, setSortDirections] = useState(sortDirectionsKeys);
+
+  useEffect(() => {
+    setSortedList(portes);
+  }, [portes]);
 
   const handleSort = (property: keyof TablaSeguimientoPortesSortDirections) => {
     const newSortDirection = !sortDirections[property];
@@ -27,13 +29,21 @@ export default function TableSeguimientoPortes(props: { portes: ISeguimientoPort
     <table className="text-left text-gray-500 table-auto m-auto">
       <thead className="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-200">
         <tr className="text-center">
-          <th scope="col" className="px-2 py-1">
+          <th scope="col" className="px-2 py-1 hover:cursor-pointer hover:text-blue-500 font-bold">
             Idx
           </th>
-          <th scope="col" className="px-2 py-1">
+          <th
+            scope="col"
+            className="px-2 py-1 hover:cursor-pointer hover:text-blue-500 font-bold min-w-[150px]"
+            onClick={() => handleSort("idVendedor")}
+          >
             N° Vendedor
           </th>
-          <th scope="col" className="px-2 py-1">
+          <th
+            scope="col"
+            className="px-2 py-1 hover:cursor-pointer hover:text-blue-500 font-bold"
+            onClick={() => handleSort("vendedor")}
+          >
             Vendedor
           </th>
           <th
@@ -85,7 +95,11 @@ export default function TableSeguimientoPortes(props: { portes: ISeguimientoPort
           >
             Transporte
           </th>
-          <th scope="col" className="px-2 py-1 font-bold">
+          <th
+            scope="col"
+            className="px-2 py-1 hover:cursor-pointer hover:text-blue-500 font-bold"
+            onClick={() => handleSort("redespachante")}
+          >
             Redespachante
           </th>
           <th
@@ -191,18 +205,23 @@ function ColorEstado(estado: string) {
 }
 
 const sortDirectionsKeys = {
+  idVendedor: true,
+  vendedor: true,
   razonSocial: true,
   fechaDeFacturacion: true,
   numeroDeCuenta: true,
   fechaEnvio: true,
-  subTotal: true,
   diaEntregaTransporte: true,
   kilos: true,
+  subTotal: true,
   despachante: true,
+  redespachante: true,
   estado: true,
 };
 
 type TablaSeguimientoPortesSortDirections = {
+  idVendedor: boolean;
+  vendedor: boolean;
   razonSocial: boolean;
   fechaDeFacturacion: boolean;
   numeroDeCuenta: boolean;
@@ -211,5 +230,6 @@ type TablaSeguimientoPortesSortDirections = {
   kilos: boolean;
   subTotal: boolean;
   despachante: boolean;
+  redespachante: boolean;
   estado: boolean;
 };

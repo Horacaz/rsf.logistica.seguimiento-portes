@@ -1,10 +1,10 @@
 export default function Loading({ loading }: { loading: boolean }) {
   if (loading)
     return (
-      <div role="status" data-testid="loading-spinner">
+      <div className="fixed inset-0 flex items-center justify-center z-50">
         <svg
           aria-hidden="true"
-          className="w-12 h-12 text-gray-200 animate-spin fill-rsf m-auto"
+          className="w-12 h-12 text-gray-200 animate-spin fill-blue-600"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

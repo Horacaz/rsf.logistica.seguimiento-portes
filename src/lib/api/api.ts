@@ -18,8 +18,8 @@ export async function getSeguimientoPortesActuales<T>(fechaCorte: string): Promi
   return await response.json();
 }
 
-export async function getClientesPorVendedor<T>(idVendedor: number): Promise<T> {
-  const baseUrl = `${BASE_URL}/Deudores/clientesPorVendedor?idVendedor=${idVendedor}`;
+export async function getCommonsListaVendedores<T>(): Promise<T> {
+  const baseUrl = `${BASE_URL}/Commons/Vendedores`;
   const response = await fetch(baseUrl, {
     method: "GET",
   });
@@ -27,8 +27,27 @@ export async function getClientesPorVendedor<T>(idVendedor: number): Promise<T> 
   return await response.json();
 }
 
+export async function getCommonsListaClientes<T>(): Promise<T> {
+  const baseUrl = `${BASE_URL}/Commons/Clientes`;
+  const response = await fetch(baseUrl, {
+    method: "GET",
+  });
+
+  return await response.json();
+}
+
+export async function getCommonsListaTransportes<T>(): Promise<T> {
+  const baseUrl = `${BASE_URL}/Commons/Transportes`;
+  const response = await fetch(baseUrl, {
+    method: "GET",
+  });
+
+  return await response.json();
+}
+
+
 export async function recuperarFactura(idVendedor: number, fecha: string, factura: string) {
-  const baseUrl = `${BASE_URL}/SeguimientoPortes/RecuperarFactura?idVendedor=${idVendedor}&fecha=${fecha}&factura=${factura}`;
+  const baseUrl = `${BASE_URL}/RecuperarFactura?idVendedor=${idVendedor}&fecha=${fecha}&factura=${factura}`;
   const response = await fetch(baseUrl, {
     method: "GET",
   });

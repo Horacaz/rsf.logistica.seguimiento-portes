@@ -1,4 +1,4 @@
-export default interface ISeguimientoPortes {
+export interface ISeguimientoPortes {
   numeroDePorte: string;
   fechaDeFacturacion: string;
   horaDeFacturacion: string;
@@ -20,4 +20,19 @@ export default interface ISeguimientoPortes {
   despachante: string;
   redespachante: string;
   estado: string;
+}
+
+export interface IVendedor {
+  id: number;
+  nombre: string;
+}
+
+export interface ICliente {
+  cuenta: string;
+  razonSocial: string;
+  viajante: number;
+}
+
+export interface ITransporte{
+  nombre: string;
 }
